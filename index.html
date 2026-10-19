@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penilaian Praktik Tingkat 1 - Politeknik ATMI Surakarta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .kop-border { border-bottom: 4px double #1e3a8a; }
+        .tab-active { border-bottom: 3px solid #1d4ed8; color: #1d4ed8; font-weight: bold; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen text-slate-800 font-sans pb-12">
+
+    <!-- HEADER / KOP RESMI -->
+    <header class="bg-white shadow-md mb-6">
+        <div class="max-w-6xl mx-auto px-4 py-6">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 kop-border pb-4">
+                <div class="flex items-center gap-4 text-center sm:text-left">
+                    <img src="https://lh3.googleusercontent.com/d/1YEWRg9g6uo5uJkz70BphfCBkVst7fjXK" 
+                         alt="Logo Politeknik ATMI Surakarta" 
+                         class="h-20 w-auto object-contain mx-auto sm:mx-0"
+                         onerror="this.onerror=null; this.src='https://via.placeholder.com/80?text=ATMI';">
+                    <div>
+                        <h1 class="text-xl sm:text-2xl font-bold text-blue-900 tracking-wide uppercase">Politeknik ATMI Surakarta</h1>
+                        <p class="text-xs sm:text-sm text-slate-600 font-semibold">Prodi TMI / RTM - Penilaian Tingkat 1</p>
+                        <p class="text-xs text-slate-500">Kalkulator Penilaian Praktik, NHP, NSP & Kenaikan Tingkat</p>
+                    </div>
+                </div>
+                <div class="text-right hidden md:block">
+                    <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full border border-blue-300">
+                        Standar RTM 2021 - 2022
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVIGASI TAB -->
+    <div class="max-w-6xl mx-auto px-4 mb-6">
+        <div class="flex border-b border-slate-300 bg-white rounded-t-lg shadow-sm">
+            <button id="tabBtn1" onclick="switchTab('nkp')" class="flex-1 py-3 px-4 text-center text-sm font-semibold text-slate-600 hover:text-blue-700 tab-active">
+                <i class="fa-solid fa-calculator mr-2"></i>1. Hitung Kenaikan Praktik (NKP)
+            </button>
+            <button id="tabBtn2" onclick="switchTab('nsp')" class="flex-1 py-3 px-4 text-center text-sm font-semibold text-slate-600 hover:text-blue-700">
+                <i class="fa-solid fa-flask mr-2"></i>2. Simulasi NSP & NHP Mata Kuliah
+            </button>
+            <button id="tabBtn3" onclick="switchTab('tabel')" class="flex-1 py-3 px-4 text-center text-sm font-semibold text-slate-600 hover:text-blue-700">
+                <i class="fa-solid fa-table mr-2"></i>3. Tabel Konversi Nilai
+            </button>
+        </div>
+    </div>
+
+    <!-- UTAMA -->
+    <main class="max-w-6xl mx-auto px-4">
+        
+        <!-- TAB 1: KALKULATOR NKP -->
+        <div id="tabNKP" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <section class="md:col-span-2 bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2 border-b pb-2">
+                    <i class="fa-solid fa-list-check text-blue-600"></i> Masukkan Nilai Akhir Praktik Mahasiswa
+                </h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">BW (Kerja Bangku) [Bobot 5]</label>
+                        <input type="number" id="bw" class="w-full border rounded p-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0 - 100">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">LW (Kerja Bubut Dasar) [Bobot 4]</label>
+                        <input type="number" id="lw" class="w-full border rounded p-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0 - 100">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">MW (Kerja Frais Dasar) [Bobot 4]</label>
+                        <input type="number" id="mw" class="w-full border rounded p-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0 - 100">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">TGR (Kerja Gerinda Alat) [Bobot 1]</label>
+                        <input type="number" id="tgr" class="w-full border rounded p-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0 - 100">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">WELD (Welding) [Bobot 1]</label>
+                        <input type="number" id="weld" class="w-full border rounded p-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0 - 100">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">IKL (Instalasi Kelistrikan) [Bobot 1]</label>
+                        <input type="number" id="ikl" class="w-full border rounded p-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0 - 100">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">MD (Gambar Teknik Manual)</label>
+                        <input type="number" id="md" class="w-full border rounded p-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0 - 100">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">CAD (Gambar CAD)</label>
+                        <input type="number" id="cad" class="w-full border rounded p-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0 - 100">
+                    </div>
+                </div>
+
+                <button onclick="hitungNKP()" class="mt-6 w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-2.5 rounded-lg transition duration-200 shadow">
+                    Hitung NKP & Status Kenaikan
+                </button>
+            </section>
+
+            <!-- HASIL -->
+            <section class="bg-white rounded-xl shadow-md p-6 flex flex-col justify-between">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-800 mb-4 border-b pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-award text-yellow-500"></i> Hasil Evaluasi NKP
+                    </h2>
+                    
+                    <div class="text-center my-6">
+                        <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Nilai Kenaikan Praktik (NKP)</p>
+                        <p id="resNKP" class="text-5xl font-extrabold text-blue-900 my-2">0.00</p>
+                        <p id="resHuruf" class="text-lg font-bold text-slate-600">Grade: -</p>
+                    </div>
+
+                    <div id="statusBox" class="p-4 rounded-lg bg-slate-100 text-center border border-slate-200">
+                        <p class="text-xs text-slate-500">Status Kelulusan</p>
+                        <p id="resStatus" class="text-lg font-bold text-slate-700">Belum dihitung</p>
+                    </div>
+                </div>
+
+                <p class="text-[11px] text-slate-400 text-center mt-4">
+                    *Syarat Minimal Kenaikan Praktik: <strong>NKP ≥ 55.10 (5.51)</strong>
+                </p>
+            </section>
+        </div>
+
+        <!-- TAB 2: SIMULASI NSP & NHP MATA KULIAH -->
+        <div id="tabNSP" class="grid grid-cols-1 md:grid-cols-3 gap-6 hidden">
+            <section class="md:col-span-2 bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2 border-b pb-2">
+                    <i class="fa-solid fa-sliders text-blue-600"></i> Simulasi NSP (Nilai Skill Praktik) Per Mata Kuliah
+                </h2>
+
+                <div class="mb-4 bg-blue-50 p-3 rounded-lg border border-blue-200 text-xs text-blue-800">
+                    <strong>Informasi Mode Ujian Praktik:</strong> TM & RTM wajib Ujian Praktik (BW, LW, MW, MD). Sedangkan TGr, EIN, CNS tidak ada Ujian Praktik.
+                </div>
+
+                <!-- Pilihan Mode Ujian -->
+                <div class="mb-4">
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Pilih Jenis Mata Kuliah / Praktik</label>
+                    <select id="modeUjian" onchange="toggleUjianMode()" class="w-full border rounded p-2 text-sm bg-slate-50 focus:ring-2 focus:ring-blue-500">
+                        <option value="dengan_ujian">Dengan Ujian Praktik (BW, LW, MW, MD)</option>
+                        <option value="tanpa_ujian">Tanpa Ujian Praktik (TGr, EIN, CNS, dll)</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t pt-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">NK (Nilai Kompetensi) [0 - 100]</label>
+                        <input type="number" id="nk" class="w-full border rounded p-2 text-sm outline-none" placeholder="70% MP + 30% EP">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">NP (Nilai Produksi) [0 - 100]</label>
+                        <input type="number" id="np" class="w-full border rounded p-2 text-sm outline-none" placeholder="5Ku+4Kc+3P+2K / 14">
+                    </div>
+                    <div id="containerNUP">
+                        <label class="block text-xs font-bold text-slate-700 mb-1">NUP (Nilai Ujian Praktik) [0 - 100]</label>
+                        <input type="number" id="nup" class="w-full border rounded p-2 text-sm outline-none" placeholder="0 - 100">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">OP (Objective Point / Kehadiran) [Maks 10]</label>
+                        <input type="number" id="op" class="w-full border rounded p-2 text-sm outline-none" placeholder="Maksimal 10">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">SP (Subjective Point) [Maks 8]</label>
+                        <input type="number" id="sp" class="w-full border rounded p-2 text-sm outline-none" placeholder="Maksimal 8">
+                    </div>
+                </div>
+
+                <button onclick="hitungSimulasiNSP()" class="mt-6 w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-2.5 rounded-lg transition duration-200 shadow">
+                    Hitung Nilai NSP Mata Kuliah
+                </button>
+            </section>
+
+            <!-- HASIL SIMULASI -->
+            <section class="bg-white rounded-xl shadow-md p-6 flex flex-col justify-between">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-800 mb-4 border-b pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-square-poll-vertical text-emerald-600"></i> Hasil Perhitungan NSP
+                    </h2>
+
+                    <div class="space-y-4 my-4">
+                        <div class="bg-slate-50 p-3 rounded border text-center">
+                            <p class="text-xs text-slate-500 font-semibold">NHP (Nilai Harian Praktik)</p>
+                            <p id="resNHP" class="text-2xl font-bold text-blue-800">0.00</p>
+                            <p class="text-[10px] text-slate-400">70% NK + 30% NP</p>
+                        </div>
+
+                        <div class="bg-slate-50 p-3 rounded border text-center">
+                            <p class="text-xs text-slate-500 font-semibold">NES (Nilai Extra Functional Skill)</p>
+                            <p id="resNES" class="text-2xl font-bold text-blue-800">0.00</p>
+                            <p class="text-[10px] text-slate-400">70% OP + 30% SP</p>
+                        </div>
+
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-300 text-center">
+                            <p class="text-xs text-blue-600 font-bold uppercase">NSP (Nilai Skill Praktik Akhir)</p>
+                            <p id="resNSP" class="text-4xl font-extrabold text-blue-900 my-1">0.00</p>
+                            <p id="resRumusNSP" class="text-[10px] text-slate-500">(2*NHP + 2*NUP + NES) / 5</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- TAB 3: TABEL KONVERSI -->
+        <div id="tabTabel" class="bg-white rounded-xl shadow-md p-6 hidden">
+            <h2 class="text-lg font-bold text-slate-800 mb-4 border-b pb-2 flex items-center gap-2">
+                <i class="fa-solid fa-table-list text-blue-600"></i> Standar Tabel Konversi Nilai Murni ke Huruf Mutu
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left border-collapse border border-slate-200">
+                    <thead>
+                        <tr class="bg-blue-900 text-white">
+                            <th class="border border-slate-300 px-4 py-2">Nilai Murni</th>
+                            <th class="border border-slate-300 px-4 py-2">Nilai Huruf</th>
+                            <th class="border border-slate-300 px-4 py-2">Keterangan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-slate-50"><td class="border px-4 py-2">78.10 - 100.00</td><td class="border px-4 py-2 font-bold text-emerald-600">A</td><td class="border px-4 py-2">Sangat Baik</td></tr>
+                        <tr class="hover:bg-slate-50"><td class="border px-4 py-2">74.60 - 78.00</td><td class="border px-4 py-2 font-bold text-blue-600">B+</td><td class="border px-4 py-2">Antara Sangat Baik - Baik[cite: 2]</td></tr>
+                        <tr class="hover:bg-slate-50"><td class="border px-4 py-2">64.10 - 74.50</td><td class="border px-4 py-2 font-bold text-blue-600">B</td><td class="border px-4 py-2">Baik[cite: 2]</td></tr>
+                        <tr class="hover:bg-slate-50"><td class="border px-4 py-2">59.60 - 64.00</td><td class="border px-4 py-2 font-bold text-yellow-600">C+</td><td class="border px-4 py-2">Cukup Baik[cite: 2]</td></tr>
+                        <tr class="hover:bg-slate-50"><td class="border px-4 py-2">55.10 - 59.50</td><td class="border px-4 py-2 font-bold text-yellow-600">C</td><td class="border px-4 py-2">Cukup (Batas Minimal Kenaikan)[cite: 1, 2]</td></tr>
+                        <tr class="hover:bg-slate-50"><td class="border px-4 py-2">36.10 - 55.00</td><td class="border px-4 py-2 font-bold text-rose-600">D</td><td class="border px-4 py-2">Kurang (Tidak Naik)[cite: 2]</td></tr>
+                        <tr class="hover:bg-slate-50"><td class="border px-4 py-2">0.00 - 36.00</td><td class="border px-4 py-2 font-bold text-rose-700">E</td><td class="border px-4 py-2">Sangat Kurang (Tidak Naik)[cite: 2]</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Navigasi Tab
+        function switchTab(tab) {
+            document.getElementById('tabNKP').classList.add('hidden');
+            document.getElementById('tabNSP').classList.add('hidden');
+            document.getElementById('tabTabel').classList.add('hidden');
+
+            document.getElementById('tabBtn1').classList.remove('tab-active');
+            document.getElementById('tabBtn2').classList.remove('tab-active');
+            document.getElementById('tabBtn3').classList.remove('tab-active');
+
+            if (tab === 'nkp') {
+                document.getElementById('tabNKP').classList.remove('hidden');
+                document.getElementById('tabBtn1').classList.add('tab-active');
+            } else if (tab === 'nsp') {
+                document.getElementById('tabNSP').classList.remove('hidden');
+                document.getElementById('tabBtn2').classList.add('tab-active');
+            } else {
+                document.getElementById('tabTabel').classList.remove('hidden');
+                document.getElementById('tabBtn3').classList.add('tab-active');
+            }
+        }
+
+        // Hitung Kenaikan Praktik (NKP)
+        function hitungNKP() {
+            const bw = parseFloat(document.getElementById('bw').value) || 0;
+            const lw = parseFloat(document.getElementById('lw').value) || 0;
+            const mw = parseFloat(document.getElementById('mw').value) || 0;
+            const tgr = parseFloat(document.getElementById('tgr').value) || 0;
+            const weld = parseFloat(document.getElementById('weld').value) || 0;
+            const ikl = parseFloat(document.getElementById('ikl').value) || 0;
+            const md = parseFloat(document.getElementById('md').value) || 0;
+            const cad = parseFloat(document.getElementById('cad').value) || 0;
+
+            const nilaiGambar = (4 * md + cad) / 5;
+            const nkp = (5 * bw + 4 * lw + 4 * mw + 4 * nilaiGambar + tgr + weld + ikl) / 20;
+
+            document.getElementById('resNKP').innerText = nkp.toFixed(2);
+
+            let huruf = 'E';
+            if (nkp >= 78.1) huruf = 'A';
+            else if (nkp >= 74.6) huruf = 'B+';
+            else if (nkp >= 64.1) huruf = 'B';
+            else if (nkp >= 59.6) huruf = 'C+';
+            else if (nkp >= 55.1) huruf = 'C';
+            else if (nkp >= 36.1) huruf = 'D';
+
+            document.getElementById('resHuruf').innerText = 'Grade: ' + huruf;
+
+            const statusBox = document.getElementById('statusBox');
+            const resStatus = document.getElementById('resStatus');
+
+            if (nkp >= 55.10) {
+                resStatus.innerText = 'LULUS / NAIK PRAKTIK';
+                resStatus.className = 'text-lg font-bold text-emerald-700';
+                statusBox.className = 'p-4 rounded-lg bg-emerald-50 border border-emerald-300 text-center';
+            } else {
+                resStatus.innerText = 'BELUM MEMENUHI (TIDAK NAIK)';
+                resStatus.className = 'text-lg font-bold text-rose-700';
+                statusBox.className = 'p-4 rounded-lg bg-rose-50 border border-rose-300 text-center';
+            }
+        }
+
+        // Switch Mode Ujian pada Simulasi NSP
+        function toggleUjianMode() {
+            const mode = document.getElementById('modeUjian').value;
+            const containerNUP = document.getElementById('containerNUP');
+            if (mode === 'tanpa_ujian') {
+                containerNUP.classList.add('hidden');
+            } else {
+                containerNUP.classList.remove('hidden');
+            }
+        }
+
+        // Hitung Simulasi NSP
+        function hitungSimulasiNSP() {
+            const mode = document.getElementById('modeUjian').value;
+            const nk = parseFloat(document.getElementById('nk').value) || 0;
+            const np = parseFloat(document.getElementById('np').value) || 0;
+            const nup = parseFloat(document.getElementById('nup').value) || 0;
+            const op = parseFloat(document.getElementById('op').value) || 0;
+            const sp = parseFloat(document.getElementById('sp').value) || 0;
+
+            // NHP = 70% NK + 30% NP
+            const nhp = (0.7 * nk) + (0.3 * np);
+            
+            // NES = 70% OP + 30% SP
+            const nes = (0.7 * op) + (0.3 * sp);
+
+            let nsp = 0;
+            if (mode === 'dengan_ujian') {
+                // NSP Dengan Ujian: (2*NHP + 2*NUP + NES) / 5
+                nsp = (2 * nhp + 2 * nup + nes) / 5;
+                document.getElementById('resRumusNSP').innerText = '(2*NHP + 2*NUP + NES) / 5';
+            } else {
+                // NSP Tanpa Ujian: (2*NHP + NES) / 3
+                nsp = (2 * nhp + nes) / 3;
+                document.getElementById('resRumusNSP').innerText = '(2*NHP + NES) / 3';
+            }
+
+            document.getElementById('resNHP').innerText = nhp.toFixed(2);
+            document.getElementById('resNES').innerText = nes.toFixed(2);
+            document.getElementById('resNSP').innerText = nsp.toFixed(2);
+        }
+    </script>
+</body>
+</html>
